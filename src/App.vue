@@ -1,28 +1,20 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app" class="container">
+    <NavegacionLanding />
+    <router-view class="contenedor-vistas"/>
+    <Footer/>
   </div>
 </template>
-
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import NavegacionLanding from './components/Navegacion/NavegacionLanding.vue'
+import NavegacionUsuario from './components/Navegacion/NavegacionUsuario.vue'
+import Footer from './components/parciales/Footer.vue'
+import { mapGetters } from "vuex";
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  components: { 
+    NavegacionLanding, 
+    NavegacionUsuario,
+    Footer 
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
