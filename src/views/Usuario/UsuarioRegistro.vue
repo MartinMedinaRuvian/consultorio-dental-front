@@ -1,7 +1,7 @@
 <template>
     <div class="text-center container-inicio-sesion">
         <Mensaje :mensaje="mensaje"/>
-        <p class="mt-4 titulo-modulo">Iniciar sesión</p>
+        <p class="mt-4 titulo-modulo">Crear Cuenta</p>
         <div class="d-flex justify-content-center align-items-center container">
             <div class="row">
                 <form @submit.prevent="iniciarSesion()" class="formulario">
@@ -19,7 +19,7 @@
         </div>
        <div class="footer-formulario mt-3">
             <p>¿No tiene una cuenta?</p>
-        <router-link data-toggle="collapse" data-target=".navbar-collapse.show" to="/crear-cuenta" class="color-verde-principal link-crear-cuenta">Crear cuenta</router-link>
+        <router-link data-toggle="collapse" data-target=".navbar-collapse.show" to="/pre-registro" class="color-verde-principal link-crear-cuenta">Crear cuenta</router-link>
        </div>
     </div>
 </template>

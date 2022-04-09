@@ -9,7 +9,6 @@
 import NavegacionLanding from './components/Navegacion/NavegacionLanding.vue'
 import NavegacionUsuario from './components/Navegacion/NavegacionUsuario.vue'
 import Footer from './components/parciales/Footer.vue'
-import { mapGetters } from "vuex";
 export default {
   components: { 
     NavegacionLanding, 

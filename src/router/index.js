@@ -20,6 +20,11 @@ const routes = [
     path: '/inicio-sesion',
     name: 'InicioSesion',
     component: () => import('@/views/Usuario/UsuarioInicioSesion.vue')
+  },
+  {
+    path: '/crear-cuenta',
+    name: 'CrearCuenta',
+    component: () => import('@/views/Usuario/UsuarioRegistro.vue')
   }
 ]
 

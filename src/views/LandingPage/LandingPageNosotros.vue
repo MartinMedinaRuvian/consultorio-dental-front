@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-    <h2 class="text-success">Nosotros 👨‍💻</h2>
+    <h2 class="text-success">Desarrolladores 👨‍💻</h2>
     <div class="row mt-5">
       <div class="col-md-3">
         <div class="card mb-4 card-nosotros">

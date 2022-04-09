@@ -14,7 +14,7 @@
       </li>
 
       <li class="nav-item ml-4">
-       <router-link data-toggle="collapse" data-target=".navbar-collapse.show" to="/nosotros" class="text-dark">Acerca de nosotros</router-link>
+       <router-link data-toggle="collapse" data-target=".navbar-collapse.show" to="/nosotros" class="text-dark">Desarrolladores</router-link>
       </li>
   
       <li class="nav-item ml-4">
