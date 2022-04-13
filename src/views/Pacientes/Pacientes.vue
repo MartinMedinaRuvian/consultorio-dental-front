@@ -31,34 +31,34 @@ import Tabla from '@/components/Pacientes/TablaPacientes.vue'
 import ModalGuardar from '@/components/Pacientes/ModalGuardarPacientes.vue'
 import Mensaje from '@/components/parciales/Mensaje.vue'
 export default {
-    data(){
-        return{
-            pacientes:[],
-            mensaje:{ver:false},
-            filtroPor: 'nombres',
-            filtro:''
-        }
-    },
-    created(){
-        this.verCategorias()
-    },
-    methods:{
-        verCategorias(){
-            let filtro = this.filtro
-            this.axios.get('categorias/' + filtro)
-            .then(respuesta =>{
-                this.categorias = respuesta.data
-            })
-            .catch((error)=>{
-                this.crearMensaje(error.response.data.mensaje, 'danger')
-            })
-        }
-    },
-    components:{
-        Tabla,
-        ModalGuardar,
-        Mensaje
+  components:{
+    Tabla,
+    ModalGuardar,
+    Mensaje
+  },
+  data(){
+    return{
+        pacientes:[],
+        mensaje:{ver:false},
+        filtroPor: 'nombres',
+        filtro:''
     }
+  },
+  created(){
+    this.verPacientes()
+  },
+  methods:{
+    verPacientes(){
+        let filtro = this.filtro
+        this.axios.get('pacientes/' + filtro)
+        .then(respuesta =>{
+            this.pacientes = respuesta.data
+        })
+        .catch((error)=>{
+            this.crearMensaje(error.response.data.mensaje, 'danger')
+        })
+    }
+  }
 }
 </script>
 <style lang="css">
