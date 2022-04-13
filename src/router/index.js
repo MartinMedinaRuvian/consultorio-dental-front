@@ -22,9 +22,9 @@ const routes = [
     component: () => import('@/views/Usuario/UsuarioInicioSesion.vue')
   },
   {
-    path: '/crear-cuenta',
-    name: 'CrearCuenta',
-    component: () => import('@/views/Usuario/UsuarioRegistro.vue')
+    path: '/pacientes',
+    name: 'Pacientes',
+    component: () => import('@/views/Pacientes/Pacientes.vue')
   }
 ]
 

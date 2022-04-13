@@ -1,31 +1,26 @@
 <template>
-    <div class="text-center container-inicio-sesion">
-        <Mensaje :mensaje="mensaje"/>
-        <p class="mt-4 titulo-modulo">Iniciar sesión</p>
-        <div class="d-flex justify-content-center align-items-center container">
-            <div class="row">
-                <form @submit.prevent="iniciarSesion()" class="formulario">
-                    <div class="form-group">
-                        <input type="text" placeholder="Usuario" class="form-control" v-model="usuario.username">
-                    </div>
-                    <div class="form-group">
-                        <input type="password" placeholder="Contraseña" class="form-control" v-model="usuario.password">
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-success">Continuar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-       <div class="footer-formulario mt-3">
-            <p>¿No tiene una cuenta?</p>
-        <router-link data-toggle="collapse" data-target=".navbar-collapse.show" to="/crear-cuenta" class="color-verde-principal link-crear-cuenta">Crear cuenta</router-link>
-       </div>
-    </div>
+  <div class="text-center container-inicio-sesion">
+      <Mensaje :mensaje="mensaje"/>
+      <p class="mt-4 titulo-modulo">Iniciar sesión</p>
+      <div class="d-flex justify-content-center align-items-center container">
+          <div class="row">
+              <form @submit.prevent="iniciarSesion()" class="formulario">
+                  <div class="form-group">
+                      <input type="text" placeholder="Usuario" class="form-control" v-model="usuario.username">
+                  </div>
+                  <div class="form-group">
+                      <input type="password" placeholder="Contraseña" class="form-control" v-model="usuario.password">
+                  </div>
+                  <div class="form-group">
+                      <button type="submit" class="btn btn-success">Continuar</button>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
 </template>
 <script>
-import Mensaje from '@/components/Mensaje'
-import { mapActions } from 'vuex'
+import Mensaje from '@/components/parciales/Mensaje.vue'
 export default {
     data() {
        return{
@@ -35,7 +30,6 @@ export default {
        }
     },
     methods:{
-        ...mapActions(['guardarUsuario', 'guardarInfo', 'cerrarSesion']),
         crearMensaje(contenido, color){
             this.mensaje.ver = true;
             this.mensaje.contenido = contenido
@@ -56,38 +50,7 @@ export default {
             .catch((error) => {
               this.crearMensaje(error.response.data.mensaje, 'danger')
             })
-        },
-        guardarInfoVendedor(){
-            this.axios.get('vendedores/' + this.usuarioIngresado.codigo)
-            .then(respuesta =>{
-                if(respuesta.status === 200){
-                  this.usuarioIngresado.codigo_cliente = null,
-                  this.usuarioIngresado.codigo_vendedor = respuesta.data.codigo;
-                  this.usuarioIngresado.codigo_empresa = respuesta.data.codigo_empresa;
-                  this.usuarioIngresado.estado = respuesta.data.estado;
-                  this.guardarUsuario(this.usuarioIngresado);                
-                  this.$router.push({ name: 'Productos'})
-                }
-            })
-            .catch((error)=>{
-                this.crearMensaje(error.response.data.mensaje, 'danger')
-            })
-        },
-        guardarInfoCliente(){
-            this.axios.get('clientes/' + this.usuarioIngresado.codigo)
-            .then(respuesta =>{
-                if(respuesta.status === 200){
-                  this.usuarioIngresado.codigo_vendedor = null;
-                  this.usuarioIngresado.codigo_cliente = respuesta.data.codigo;
-                  this.usuarioIngresado.estado = respuesta.data.estado;
-                  this.guardarUsuario(this.usuarioIngresado);
-                  this.$router.push({ name: 'Catalogo'})
-                }
-            })
-            .catch((error)=>{
-                this.crearMensaje(error.response.data.mensaje, 'danger')
-            })
-        },
+        }
     },
     components:{
         Mensaje

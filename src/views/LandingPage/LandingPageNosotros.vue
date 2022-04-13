@@ -5,7 +5,7 @@
       <div class="col-md-3">
         <div class="card mb-4 card-nosotros">
           <div class="card-header bg-transparent">
-            <img src="../../assets/martin.png" alt="foto-martin" width="200px" height="250px">
+            <img src="../../assets/martin.png" alt="foto-martin" width="140px" height="180px">
           </div>
           <div class="card-body">
             <h5><b>Martin de Jesus</b></h5>
