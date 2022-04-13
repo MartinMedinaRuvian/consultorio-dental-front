@@ -1,18 +1,18 @@
 <template>
 <div class="text-center">
     <Mensaje :mensaje="mensaje" />
-    <h3>Pacientes</h3>
+    <h5 class="text-success">Pacientes</h5>
     <div class="contenedor-filtro_general">
       <div class="contenedor-filtro">
         <label for="" class="col-md-12">Seleccione filtro:</label>
-        <select class="form-select form-control col-md-12" aria-label="Default select example">
+        <select class="form-select form-control col-md-12" aria-label="Seleccione el filtro" v-model="filtroPor">
           <option value="nombres" selected>Nombres </option>
           <option value="apellidos">Apellidos</option>
           <option value="identificacion">Identificación</option> 
         </select>
       </div>
       <div class="contenedor-input">
-        <label for="" class="col-md-12">Buscar:</label>
+        <label for="" class="col-md-12">Buscar por {{ filtroPor }}:</label>
         <div class="contenedor-input_buscar">
           <input @keypress="verPacientes()" type="text" class="form-control text-center formulario" placeholder="Ingrese el dato" v-model="filtro">
           <button class="btn btn-outline-success ml-2" @click="verPacientes()"><span class="icon-Lupa"></span></button>
@@ -33,8 +33,9 @@ import Mensaje from '@/components/parciales/Mensaje.vue'
 export default {
     data(){
         return{
-            categorias:[],
+            pacientes:[],
             mensaje:{ver:false},
+            filtroPor: 'nombres',
             filtro:''
         }
     },
