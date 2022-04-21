@@ -4,7 +4,7 @@
       <p class="mt-4 titulo-modulo">Iniciar sesión</p>
       <div class="d-flex justify-content-center align-items-center container">
           <div class="row">
-              <form @submit.prevent="iniciarSesion()" class="formulario">
+              <form @submit.prevent="inicioSesion()" class="formulario">
                   <div class="form-group">
                       <input type="text" placeholder="Número de documento" class="form-control" v-model="usuario.cedula">
                   </div>
@@ -16,10 +16,6 @@
                   </div>
               </form>
           </div>
-      </div>
-      <div class="footer-formulario mt-3">
-        <p>¿No tiene una cuenta?</p>
-        <router-link data-toggle="collapse" data-target=".navbar-collapse.show" to="/registro" class="color-verde-principal link-crear-cuenta">Crear cuenta</router-link>
       </div>
   </div>
 </template>
@@ -39,10 +35,11 @@ export default {
             this.mensaje.contenido = contenido
             this.mensaje.color = color
         },
-        registro(){
-            this.axios.post('user/login', this.usuario)
+        inicioSesion(){
+            this.axios.post('login', this.usuario)
             .then((respuesta)=>{
-                if(respuesta.status === 200){                    
+                if(respuesta.status === 200){   
+                  console.warn(respuesta, 'RESPUESTA')                 
                   localStorage.setItem('token', respuesta.data)
                 }
             })

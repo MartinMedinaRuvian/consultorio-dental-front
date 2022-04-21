@@ -78,7 +78,7 @@ export default {
             this.mensaje.color = color
         },
         registro(){
-            this.axios.post('odontologo/crear', this.paciente)
+            this.axios.post('paciente/crear', this.paciente)
             .then((respuesta)=>{
                 if(respuesta.status === 200){                    
                   this.$router.push('/inicio-sesion')

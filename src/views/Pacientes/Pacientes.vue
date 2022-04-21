@@ -23,7 +23,7 @@
         Nuevo
     </button>
     <ModalGuardar/>
-    <Tabla :categorias="categorias"/>
+    <Tabla :pacientes="pacientes"/>
 </div>
 </template>
 <script>
