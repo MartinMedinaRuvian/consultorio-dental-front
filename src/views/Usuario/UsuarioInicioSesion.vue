@@ -6,7 +6,7 @@
           <div class="row">
               <form @submit.prevent="iniciarSesion()" class="formulario">
                   <div class="form-group">
-                      <input type="text" placeholder="Usuario" class="form-control" v-model="usuario.username">
+                      <input type="text" placeholder="Número de documento" class="form-control" v-model="usuario.cedula">
                   </div>
                   <div class="form-group">
                       <input type="password" placeholder="Contraseña" class="form-control" v-model="usuario.password">
@@ -16,6 +16,10 @@
                   </div>
               </form>
           </div>
+      </div>
+      <div class="footer-formulario mt-3">
+        <p>¿No tiene una cuenta?</p>
+        <router-link data-toggle="collapse" data-target=".navbar-collapse.show" to="/registro" class="color-verde-principal link-crear-cuenta">Crear cuenta</router-link>
       </div>
   </div>
 </template>
@@ -35,16 +39,11 @@ export default {
             this.mensaje.contenido = contenido
             this.mensaje.color = color
         },
-        iniciarSesion(){
-            this.axios.post('usuarios/inicioSesion', this.usuario)
+        registro(){
+            this.axios.post('user/login', this.usuario)
             .then((respuesta)=>{
                 if(respuesta.status === 200){                    
-                    this.usuarioIngresado = respuesta.data;
-                    if(this.usuarioIngresado.tipo == 1){
-                        this.guardarInfoCliente();
-                    }else{
-                        this.guardarInfoVendedor();
-                    }
+                  localStorage.setItem('token', respuesta.data)
                 }
             })
             .catch((error) => {

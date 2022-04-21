@@ -11,6 +11,7 @@ import VueAxios from 'vue-axios'
  * SprinBoot
  */
 axios.defaults.baseURL = 'http://localhost:8080';
+axios.defaults.headers.common["Authorization"] = localStorage.getItem("token");
 
 /**
  * Agregamos la URL base de nuestra API. Para conectarse al backend de producción heroku:
