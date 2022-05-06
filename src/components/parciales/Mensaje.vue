@@ -18,7 +18,7 @@ export default {
   },
   methods:{
     cerrar(){
-      setInterval(this.ocultar, 4000); 
+      setInterval(this.ocultar, 5000); 
       this.ocultar()
     },
     ocultar(){

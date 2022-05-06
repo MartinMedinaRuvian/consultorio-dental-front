@@ -19,21 +19,18 @@
         </div>
       </div>
     </div>
-    <button type="button" class="btn btn-success mt-3" data-toggle="modal" data-target="#categoriaGuardarModal">
+    <button @click="pacienteRegistro()" type="button" class="btn btn-success mt-3" data-toggle="modal" data-target="#categoriaGuardarModal">
         Nuevo
     </button>
-    <ModalGuardar/>
     <Tabla :pacientes="pacientes"/>
 </div>
 </template>
 <script>
 import Tabla from '@/components/Pacientes/TablaPacientes.vue'
-import ModalGuardar from '@/components/Pacientes/ModalGuardarPacientes.vue'
 import Mensaje from '@/components/parciales/Mensaje.vue'
 export default {
   components:{
     Tabla,
-    ModalGuardar,
     Mensaje
   },
   data(){
@@ -49,14 +46,20 @@ export default {
   },
   methods:{
     verPacientes(){
-        let filtro = this.filtro
-        this.axios.get('pacientes/' + filtro)
+        this.axios.get('pacientes', {
+          headers: {
+            Authorization: localStorage.getItem('token')
+          }
+        })
         .then(respuesta =>{
             this.pacientes = respuesta.data
         })
         .catch((error)=>{
             this.crearMensaje(error.response.data.mensaje, 'danger')
         })
+    },
+    pacienteRegistro(){
+      this.$router.push('/registro')
     }
   }
 }

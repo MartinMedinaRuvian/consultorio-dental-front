@@ -12,6 +12,12 @@ const routes = [
     component: () => import('@/views/LandingPage/LandingPageInicio.vue')
   },
   {
+    path: '/menu',
+    name: 'Menu',
+    component: () => import('@/views/Menu/Index.vue'),
+    meta:{requiereAutorizacion:true}
+  },
+  {
     path: '/nosotros',
     name: 'Nosotros',
     component: () => import('@/views/LandingPage/LandingPageNosotros.vue')
@@ -24,12 +30,14 @@ const routes = [
   {
     path: '/registro',
     name: 'Registro',
-    component: () => import('@/views/Usuario/UsuarioRegistro.vue')
+    component: () => import('@/views/Pacientes/PacienteRegistro.vue'),
+    meta:{requiereAutorizacion:true}
   },
   {
     path: '/pacientes',
     name: 'Pacientes',
-    component: () => import('@/views/Pacientes/Pacientes.vue')
+    component: () => import('@/views/Pacientes/Pacientes.vue'),
+    meta:{requiereAutorizacion:true}
   }
 ]
 
@@ -37,6 +45,16 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next)=>{
+  const rutaProtegida = to.matched.some(record=> record.meta.requiereAutorizacion);
+
+  if(rutaProtegida && store.state.token === null){
+    next({name:'InicioSesion'})
+  }else{
+    next();
+  }
 })
 
 export default router

@@ -6,7 +6,7 @@
           <div class="row">
               <form @submit.prevent="inicioSesion()" class="formulario">
                   <div class="form-group">
-                      <input type="text" placeholder="Número de documento" class="form-control" v-model="usuario.cedula">
+                      <input type="number" placeholder="Número de documento" class="form-control" v-model="usuario.cedula">
                   </div>
                   <div class="form-group">
                       <input type="password" placeholder="Contraseña" class="form-control" v-model="usuario.password">
@@ -21,6 +21,7 @@
 </template>
 <script>
 import Mensaje from '@/components/parciales/Mensaje.vue'
+import { mapActions } from 'vuex'
 export default {
     data() {
        return{
@@ -30,17 +31,21 @@ export default {
        }
     },
     methods:{
+      ...mapActions(['guardarToken']),
         crearMensaje(contenido, color){
             this.mensaje.ver = true;
             this.mensaje.contenido = contenido
             this.mensaje.color = color
         },
         inicioSesion(){
-            this.axios.post('login', this.usuario)
+            this.axios.post('login?cedula=' + this.usuario.cedula + '&password=' + this.usuario.password)
             .then((respuesta)=>{
-                if(respuesta.status === 200){   
-                  console.warn(respuesta, 'RESPUESTA')                 
-                  localStorage.setItem('token', respuesta.data)
+              console.warn(respuesta, 'RESPUESTA')                  
+                if(respuesta && respuesta.status === 200 && respuesta.data.result === 'exitoso'){  
+                  this.guardarToken(respuesta.data.token)
+                  this.$router.push('/menu')
+                } else {
+                  this.crearMensaje(respuesta.data.result, 'danger')
                 }
             })
             .catch((error) => {

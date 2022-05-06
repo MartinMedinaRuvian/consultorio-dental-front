@@ -41,7 +41,7 @@
             <img alt="foto-andrey" width="200px" height="250px">
           </div>
           <div class="card-body"> 
-            <h5><b>Daniel</b></h5>
+            <h5><b>Daniel Valencia</b></h5>
             <p>Código - 1151670</p>
           </div>
         </div>           

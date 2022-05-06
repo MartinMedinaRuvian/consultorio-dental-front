@@ -1,52 +1,43 @@
 <template>
   <div class="text-center container-inicio-sesion">
     <Mensaje :mensaje="mensaje"/>
-    <p class="mt-4 titulo-modulo">Registro</p>
+    <p class="mt-4 titulo-modulo">Registro Paciente</p>
     <div class="d-flex justify-content-center align-items-center container">
         <div class="row">
           <form @submit.prevent="registro()" class="formulario">
 							<div class="form-group">
 								<label for="select">Seleccione Tipo Documento:</label>
-								<select id="select" class="form-select form-control" aria-label="Default select example" v-if="tiposDocumentos.length > 0" v-model="paciente.tipoDoc">
-									<option :value="tipoDocumento.codigo" v-for="tipoDocumento in tiposDocumentos" :key="tipoDocumento.codigo">{{tipoDocumento.descripcion}}</option>
+								<select id="select" class="form-select form-control" aria-label="Default select example" v-if="tiposDocumentos.length > 0" v-model="paciente.id_tipo_documento">
+									<option :value="tipoDocumento.id" v-for="tipoDocumento in tiposDocumentos" :key="tipoDocumento.id">{{tipoDocumento.nombre}}</option>
 								</select>
 							</div>
 							<div class="form-group">
-								<input type="text" placeholder="Número Documento" v-model="paciente.NroDoc" class="form-control">
+								<input type="text" placeholder="Número Documento" v-model="paciente.documento" class="form-control">
 							</div>
               <div class="form-group">
-								<input type="text" placeholder="Primer Nombre" class="form-control" v-model="paciente.primerNombre">
+								<input type="text" placeholder="Nombres" class="form-control" v-model="paciente.nombre">
               </div>
               <div class="form-group">
-								<input type="text" placeholder="Segundo Nombre" class="form-control" v-model="paciente.segundoNombre">
-              </div>
-              <div class="form-group">
-								<input type="text" placeholder="Primer Apellido" class="form-control" v-model="paciente.primerApellido">
-              </div>
-              <div class="form-group">
-								<input type="text" placeholder="Segundo Apellido" class="form-control" v-model="paciente.segundoApellido">
+								<input type="text" placeholder="Apellidos" class="form-control" v-model="paciente.apellido">
               </div>
 							<div class="form-group">
 								<label for="select">Seleccione Fecha de Nacimiento:</label>
-								<input type="date" class="form-control" v-model="paciente.fechaNacimiento">
+								<input type="date" class="form-control" v-model="paciente.fecha_nacimiento">
               </div>
 							<div class="form-group">
 								<label for="select">Seleccione Género:</label>
 								<select id="select" class="form-select form-control" aria-label="Default select example" v-if="opcionesGenero.length > 0" v-model="paciente.genero">
-									<option :value="opcionGenero.valor" v-for="opcionGenero in opcionesGenero" :key="opcionGenero.valor">{{opcionGenero.descripcion}}</option>
+									<option :value="opcionGenero.id" v-for="opcionGenero in opcionesGenero" :key="opcionGenero.id">{{opcionGenero.descripcion}}</option>
 								</select>
 							</div>
               <div class="form-group">
-                  <input type="text" placeholder="Email" class="form-control" v-model="paciente.direccionCorreo">
+                  <input type="text" placeholder="Email" class="form-control" v-model="paciente.email">
               </div>
               <div class="form-group">
-                  <input type="phone" placeholder="Numero de télefono" class="form-control" v-model="paciente.nroTelefono">
+                  <input type="phone" placeholder="Numero de télefono" class="form-control" v-model="paciente.telefono">
               </div>
               <div class="form-group">
-                  <input type="text" placeholder="Dirección de residencia" class="form-control" v-model="paciente.direccionResidencia">
-              </div>
-              <div class="form-group">
-                  <input type="password" placeholder="Contraseña" class="form-control" v-model="paciente.pwd">
+                  <input type="text" placeholder="Dirección de residencia" class="form-control" v-model="paciente.direccion">
               </div>
 							<div class="form-group">
 								<button type="submit" class="btn btn-success">Guardar</button>
@@ -61,11 +52,11 @@ import Mensaje from '@/components/parciales/Mensaje.vue'
 export default {
     data() {
        return{
-           paciente:{tipoDoc:1, genero:'H'},
+           paciente:{id_tipo_documento:1, genero:'H', estado:0},
            pacienteIngresado:{},
            mensaje:{ver:false},
-					 tiposDocumentos: [{codigo:1, descripcion:'Cédula'}],
-					 opcionesGenero: [{valor:'H', descripcion: 'Hombre'}, {valor:'M', descripcion: 'Mujer'}]
+					 tiposDocumentos: [{id:1, nombre:'Cédula'}],
+					 opcionesGenero: [{id:1, descripcion: 'Hombre'}, {id:2, descripcion: 'Mujer'}]
        }
     },
 		created () {
@@ -78,18 +69,24 @@ export default {
             this.mensaje.color = color
         },
         registro(){
-            this.axios.post('paciente/crear', this.paciente)
+            this.axios.post('pacientes', this.paciente)
             .then((respuesta)=>{
-                if(respuesta.status === 200){                    
-                  this.$router.push('/inicio-sesion')
-                }
+              console.warn(respuesta, 'R pacientes')
             })
             .catch((error) => {
               this.crearMensaje(error.response.data.mensaje, 'danger')
             })
         },
 				verTiposDocumentos () {
-					this.tiposDocumentos = [{codigo:1, descripcion:'Cédula'}]
+					this.axios.get('tipodocumentolistar', {
+             headers: {
+                Authorization: localStorage.getItem('token')
+             }
+          }) 
+          .then((respuesta) => {
+            console.warn(respuesta)
+            this.tiposDocumentos = respuesta.data
+          })
 				}
     },
     components:{
