@@ -7,7 +7,7 @@
           <form @submit.prevent="registro()" class="formulario">
 							<div class="form-group">
 								<label for="select">Seleccione Tipo Documento:</label>
-								<select id="select" class="form-select form-control" aria-label="Default select example" v-if="tiposDocumentos.length > 0" v-model="paciente.id_tipo_documento">
+								<select id="select" class="form-select form-control" aria-label="Default select example" v-if="tiposDocumentos.length > 0" v-model="paciente.tipoDocumento.id">
 									<option :value="tipoDocumento.id" v-for="tipoDocumento in tiposDocumentos" :key="tipoDocumento.id">{{tipoDocumento.nombre}}</option>
 								</select>
 							</div>
@@ -22,7 +22,7 @@
               </div>
 							<div class="form-group">
 								<label for="select">Seleccione Fecha de Nacimiento:</label>
-								<input type="date" class="form-control" v-model="paciente.fecha_nacimiento">
+								<input type="date" class="form-control" v-model="paciente.fechaNacimiento">
               </div>
 							<div class="form-group">
 								<label for="select">Seleccione Género:</label>
@@ -52,7 +52,7 @@ import Mensaje from '@/components/parciales/Mensaje.vue'
 export default {
     data() {
        return{
-           paciente:{id_tipo_documento:1, genero:'H', estado:0},
+           paciente:{id_tipo_documento:1, genero:'H', estado:0, tipoDocumento:{id:1, nombre:'Cedula'}},
            pacienteIngresado:{},
            mensaje:{ver:false},
 					 tiposDocumentos: [{id:1, nombre:'Cédula'}],
@@ -69,20 +69,28 @@ export default {
             this.mensaje.color = color
         },
         registro(){
-            this.axios.post('pacientes', this.paciente)
+            this.axios.post('/pacientes/registro', this.paciente, {
+              headers: {
+                Authorization: localStorage.getItem('token')
+              }
+            })
             .then((respuesta)=>{
               console.warn(respuesta, 'R pacientes')
+              if(respuesta && respuesta.status===201){
+                this.crearMensaje(respuesta.mensaje, 'success')
+                this.$router.push('/pacientes')
+              }
             })
             .catch((error) => {
               this.crearMensaje(error.response.data.mensaje, 'danger')
             })
         },
 				verTiposDocumentos () {
-					this.axios.get('tipodocumentolistar', {
+					this.axios.get('/tipoDocumento/todos', {
              headers: {
                 Authorization: localStorage.getItem('token')
              }
-          }) 
+          })
           .then((respuesta) => {
             console.warn(respuesta)
             this.tiposDocumentos = respuesta.data

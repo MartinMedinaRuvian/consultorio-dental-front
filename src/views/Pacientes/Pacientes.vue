@@ -46,7 +46,7 @@ export default {
   },
   methods:{
     verPacientes(){
-        this.axios.get('pacientes', {
+        this.axios.get('api/pacientes', {
           headers: {
             Authorization: localStorage.getItem('token')
           }
