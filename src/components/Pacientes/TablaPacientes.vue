@@ -19,11 +19,24 @@
           <td>{{ paciente.direccion }}</td>
           <td>{{ paciente.telefono }}</td>
           <td>{{ paciente.email }}</td>
-          <td>{{ paciente.genero === 1 ? 'M' : 'H' }}</td>
-          <td :class="paciente.estado === 1 ? 'bg-success text-white' : 'bg-danger'">{{ paciente.estado === 1 ? 'A' : 'D' }}</td>
+          <td>{{ paciente.genero === 1 ? "M" : "H" }}</td>
+          <td
+            :class="
+              paciente.estado === 1 ? 'bg-success text-white' : 'bg-danger'
+            "
+          >
+            {{ paciente.estado === 1 ? "A" : "D" }}
+          </td>
           <td>
-              <button class="btn btn-outline-warning" @click="editar(paciente)"><span class="icon-Lapiz"></span></button>
-              <button class="btn btn-outline-danger ml-2" @click="eliminar(paciente)"><span class="icon-Papelera"></span></button>
+            <button class="btn btn-outline-warning" @click="editar(paciente)">
+              <span class="icon-Lapiz"></span>
+            </button>
+            <button
+              class="btn btn-outline-danger ml-2"
+              @click="eliminar(paciente)"
+            >
+              <span class="icon-Papelera"></span>
+            </button>
           </td>
         </tr>
       </tbody>
@@ -32,16 +45,17 @@
 </template>
 <script>
 export default {
-  props:{
-      pacientes:[]
+  props: {
+    pacientes: [],
   },
-  methods:{
-      eliminar(paciente){
-            this.$router.push({ name: 'PacientesEliminar', params: { paciente }})
-      },
-      editar(paciente){
-            this.$router.push({ name: 'PacientesEditar', params: { paciente }})
-      }
-  }
-}
+  methods: {
+    eliminar(paciente) {
+      this.$router.push({ name: "PacientesEliminar", params: { paciente } });
+    },
+    editar(paciente) {
+      console.warn(paciente, 'PPP')
+      this.$router.push({ name: "PacienteEditar", params: { paciente } });
+    },
+  },
+};
 </script>

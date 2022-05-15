@@ -1,34 +1,17 @@
 <template>
   <div class="text-center container-inicio-sesion">
     <Mensaje :mensaje="mensaje" />
-    <p class="mt-4 titulo-modulo">Registro Paciente</p>
+    <p class="mt-4 titulo-modulo">Editar Paciente</p>
     <div class="d-flex justify-content-center align-items-center container">
       <div class="row">
-        <form @submit.prevent="registro()" class="formulario">
-          <div class="form-group">
-            <label for="select">Seleccione Tipo Documento:</label>
-            <select
-              id="select"
-              class="form-select form-control"
-              aria-label="Default select example"
-              v-if="tiposDocumentos.length > 0"
-              v-model="paciente.tipoDocumento.id"
-            >
-              <option
-                :value="tipoDocumento.id"
-                v-for="tipoDocumento in tiposDocumentos"
-                :key="tipoDocumento.id"
-              >
-                {{ tipoDocumento.nombre }}
-              </option>
-            </select>
-          </div>
+        <form @submit.prevent="actualizar()" class="formulario">
           <div class="form-group">
             <input
               type="text"
               placeholder="Número Documento"
               v-model="paciente.documento"
               class="form-control"
+              disabled
             />
           </div>
           <div class="form-group">
@@ -98,7 +81,8 @@
             />
           </div>
           <div class="form-group">
-            <button type="submit" class="btn btn-success">Guardar</button>
+            <button @click="cancelar()" class="btn btn-info">Cancelar</button>
+            <button type="submit" class="btn btn-success ml-5">Actualizar</button>
           </div>
         </form>
       </div>
@@ -108,6 +92,9 @@
 <script>
 import Mensaje from "@/components/parciales/Mensaje.vue";
 export default {
+  props: {
+    paciente: Object
+  },
   data() {
     return {
       paciente: {
@@ -125,8 +112,8 @@ export default {
       ],
     };
   },
-  created() {
-    this.verTiposDocumentos();
+  created () {
+    console.warn(this.paciente, 'Paciente editar')
   },
   methods: {
     crearMensaje(contenido, color) {
@@ -134,9 +121,9 @@ export default {
       this.mensaje.contenido = contenido;
       this.mensaje.color = color;
     },
-    registro() {
+    actualizar() {
       this.axios
-        .post("pacientes", this.paciente, {
+        .put("pacientes/" + this.paciente.documento, this.paciente, {
           headers: {
             Authorization: localStorage.getItem("token"),
           },

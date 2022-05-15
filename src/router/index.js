@@ -38,6 +38,13 @@ const routes = [
     name: 'Pacientes',
     component: () => import('@/views/Pacientes/Pacientes.vue'),
     meta:{requiereAutorizacion:true}
+  },
+  {
+    path: '/paciente-editar',
+    name: 'PacienteEditar',
+    component: () => import('@/views/Pacientes/PacienteEditar.vue'),
+    props: true,
+    meta:{requiereAutorizacion:true}
   }
 ]
 
