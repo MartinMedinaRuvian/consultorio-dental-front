@@ -45,6 +45,13 @@ const routes = [
     component: () => import('@/views/Pacientes/PacienteEditar.vue'),
     props: true,
     meta:{requiereAutorizacion:true}
+  },
+  {
+    path: '/paciente-eliminar',
+    name: 'PacienteEliminar',
+    component: () => import('@/views/Pacientes/PacienteEliminar.vue'),
+    props: true,
+    meta:{requiereAutorizacion:true}
   }
 ]
 

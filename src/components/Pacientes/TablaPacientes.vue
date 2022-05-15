@@ -50,10 +50,9 @@ export default {
   },
   methods: {
     eliminar(paciente) {
-      this.$router.push({ name: "PacientesEliminar", params: { paciente } });
+      this.$router.push({ name: "PacienteEliminar", params: { paciente } });
     },
     editar(paciente) {
-      console.warn(paciente, 'PPP')
       this.$router.push({ name: "PacienteEditar", params: { paciente } });
     },
   },
