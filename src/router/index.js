@@ -52,6 +52,13 @@ const routes = [
     component: () => import('@/views/Pacientes/PacienteEliminar.vue'),
     props: true,
     meta:{requiereAutorizacion:true}
+  },
+  {
+    path: '/odontograma',
+    name: 'Odontograma',
+    component: () => import('@/views/Odontograma/Odontograma.vue'),
+    props: true,
+    meta:{requiereAutorizacion:true}
   }
 ]
 

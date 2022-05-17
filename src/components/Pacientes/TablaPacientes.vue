@@ -22,7 +22,7 @@
           <td>{{ paciente.genero === 1 ? "M" : "H" }}</td>
           <td
             :class="
-              paciente.estado === 1 ? 'bg-success text-white' : 'bg-danger'
+              paciente.estado === 1 ? 'bg-success text-white' : 'bg-danger text-white'
             "
           >
             {{ paciente.estado === 1 ? "A" : "D" }}
